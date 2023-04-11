@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Test.Models.Employee>
+
+@{
+    ViewBag.Title = "Employee";
+}
+<link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+<h2>Employee</h2>
+<p>
+    @Html.ActionLink("Create New", "CreateEmployee")
+</p>
+<table class="table" id="datatable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GmailConfirm)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Leave)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmployeeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmployeeEmail)
+                </td>
+                <td>
+                    @{ bool isConfirmed = item.GmailConfirm == "Approved";}
+                    @if (isConfirmed)
+                    {
+                        <p style="color:green">@Html.DisplayFor(modelItem => item.GmailConfirm)</p>
+                    }
+                    else
+                    {
+                        <p style="color:red">@Html.DisplayFor(modelItem => item.GmailConfirm)</p>
+                    }
+                </td>
+                <td>
+                    @{ bool isLeave = item.Leave == "No Leave";}
+                    @if (isLeave)
+                    {
+                        <p style="color:green">@Html.DisplayFor(modelItem => item.Leave)</p>
+                    }
+                    else
+                    {
+                        <p style="color:red">@Html.DisplayFor(modelItem => item.Leave)</p>
+                    }
+                    
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditEmployee", new { id = item.EmployeeID }) |
+                    @Html.ActionLink("Delete", "DeleteEmployee", new { id = item.EmployeeID })
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
